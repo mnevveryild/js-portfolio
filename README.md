@@ -1,8 +1,3 @@
-# JavaScript Öğrenme Yolculuğum
-
-> Sıfırdan 5 projeye — temel JS'ten API entegrasyonuna.
-
----
 
 ## 📚 Öğrendiklerim
 
@@ -65,7 +60,6 @@ Projeler     ████████████████████  5/5
 
 ---
 
-*Öğrenmeye devam ediyorum. ⚡*
+*Öğrenmeye devam ediyorum. *
 ```
 
-Bunu kopyalayıp `README.md` adıyla kaydetmen yeterli. (` ` ` olan yerlerde boşlukları kaldır, sadece ` ``` ` olmalı — burada iç içe kod bloğu sorunu yaşadım.)
