@@ -44,7 +44,8 @@ async function havaGetir(sehir) {
 // DOM'a eleman ekleme
 const kart = document.createElement("div");
 liste.appendChild(kart);
-` ` `
+
+```
 
 ---
 
