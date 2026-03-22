@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .slide { display:none; background:#ccc; padding:20px; margin:10px; }
+    .slide.active { display:block; }
+  </style>
+</head>
+<body>
+  <div class="slide active">SLIDE 1</div>
+  <div class="slide">SLIDE 2</div>
+  <div class="slide">SLIDE 3</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    
+    setInterval(() => {  // Her 2 saniyede bir çalışır
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 2000);
+  </script>
+</body>
+</html>

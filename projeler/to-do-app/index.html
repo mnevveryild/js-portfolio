@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🧾 TODO App</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+        input { width: 300px; padding: 12px; }
+        button { padding: 12px 20px; background: #28a745; color: white; border: none; }
+        .task { padding: 15px; margin: 10px 0; background: #f8f9fa; border-radius: 5px; display: flex; justify-content: space-between; }
+        .sil { background: #dc3545 !important; }
+        .tamam { text-decoration: line-through; opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <h1>📝 Todo List</h1>
+    <input id="yeniTask" placeholder="Yeni task...">
+    <button onclick="taskEkle()">Ekle</button>
+    <button onclick="tamamlandiGoster()">Tamamlananları Göster</button>
+    <button onclick="tasksGoster()">Tümünü Göster</button>
+    <p id="taskSayisi">Toplam Task: 0</p>
+    <div id="taskList"></div>
+    
+</body>
+<script>
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || []; // localStorage'dan taskları alır, yoksa boş array
+    tasksGoster(); // sayfa yüklendiğinde taskları gösterir
+ 
+    function taskEkle(){
+
+
+        let text = document.getElementById("yeniTask").value.trim(); // inputun değerini alır ve boşlukları temizler
+        if(text === " "){
+            return alert("Lütfen bir task giriniz!");
+
+        }
+        
+       
+
+        tasks.push({
+            text: text,
+            tamam: false,
+            id: Date.now()});
+
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // taskları localStorage'a kaydeder
+        document.getElementById("yeniTask").value = ""; // inputu temizler
+        tasksGoster(); // güncellenmiş taskları gösterir
+        
+    }
+        function tasksGoster(){
+            let html = "";
+            for (let task of tasks){
+                let durum = task.tamam ? "tamam" : "";
+                html += `
+                <div class="task ${durum}">
+                    <span onclick="taskTamamla(${task.id})">${task.text}</span>
+                    <button class="sil" onclick="taskSil(${task.id})">Sil</button>
+                </div>
+                
+                `;
+
+                document.getElementById("taskList").innerHTML = html;
+
+            }
+
+            html += `<button style="background: #007bff; margin-top: 20px; display: block; " onclick="tumunuSil()">Tümünü Sil</button>`;
+            document.getElementById("taskList").innerHTML = html;
+
+            document.getElementById("taskSayisi").textContent = `Toplam Task: ${tasks.length}`; // task sayısını gösterir
+
+        }
+
+        function tumunuSil(){
+            tasks = []; // tüm taskları siler
+            localStorage.setItem("tasks", JSON.stringify(tasks)); // güncellenmiş taskları kaydeder
+            tasksGoster(); // güncellenmiş taskları gösterir
+            
+        }
+
+        function taskSil(id){
+            tasks = tasks.filter(task => task.id !== id); // id'ye göre taskı siler
+            localStorage.setItem("tasks", JSON.stringify(tasks)); // güncellenmiş taskları kaydeder
+            tasksGoster(); // güncellenmiş taskları gösterir
+            
+        }
+
+        function taskTamamla(id){
+            let task = tasks.find(task => task.id === id); // id'ye göre taskı bulur
+            task.tamam = !task.tamam; // tamam durumunu değiştirir
+            localStorage.setItem("tasks", JSON.stringify(tasks)); // güncellenmiş taskları
+            tasksGoster(); // güncellenmiş taskları gösterir
+        }
+
+        function tamamlandiGoster(){
+            let html = "";
+            for (let task of tasks){
+                if (task.tamam) {
+                    html += `
+                    <div class="task tamam">
+                        <span>${task.text}</span> `;
+                    html += `
+                        <button class="sil" onclick="taskSil(${task.id})">Sil</button>
+                    </div>      
+                    `;                  
+                }}
+            document.getElementById("taskList").innerHTML = html;
+           
+
+        }
+
+
+
+            document.getElementById("yeniTask").addEventListener("keypress", function(e) {
+                if (e.key =="Enter") {
+                    taskEkle(); // Enter tuşuna basıldığında task ekle
+                }
+            });
+
+            
+
+
+</script>
+
+</html>

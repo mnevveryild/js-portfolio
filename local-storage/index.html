@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <div class="konu">
+        <h3>LocalStorage</h3>
+        <input id="kaydetInput" placeholder="Kaydet">
+        <button onclick="kaydet()">Kaydet</button>
+        <button onclick="oku()">Oku</button>
+        <div id="test6"></div>
+    </div>
+</body>
+
+<script>
+    function kaydet(){
+        let deger = document.getElementById("kaydetInput").value;
+        localStorage.setItem("veri", deger); // localStorage'a veri kaydeder
+        document.getElementById("test6").innerHTML = "Veri kaydedildi!"; // inputu temizler
+    }
+
+    function oku(){
+        let veri = localStorage.getItem("veri"); // localStorage'dan veri okur
+        document.getElementById("test6").innerHTML = `Kaydedilen veri: ${veri}`; // sonucu gösterir
+    }
+</script>
+</html>

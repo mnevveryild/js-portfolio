@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="search" placeholder="Ara...">
+    <ul id="list"></ul>
+    
+</body>
+<script>
+const items = ['JS', 'HTML', 'CSS', 'React'];
+document.querySelector('#search').addEventListener('input', e => {
+  const filtered = items.filter(item => 
+    item.toLowerCase().includes(e.target.value.toLowerCase())
+  );
+  document.querySelector('#list').innerHTML = 
+    filtered.map(item => `<li>${item}</li>`).join('');
+});
+</script>
+</html>

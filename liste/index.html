@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <div class="konu">
+        <h3>Liste (for of)</h3>
+        <button id="listeBtn">Listeyi Gör</button>
+        <div id="test5"></div>
+    </div>
+</body>
+
+<script>
+    let listele = document.getElementById("listeBtn");
+    let test5 = document.getElementById("test5");
+
+    listele.addEventListener("click", function() {
+        let meyveler = ["Elma", "Armut", "Muz", "Çilek"];
+        let html = "";
+            for (let meyve of meyveler){
+                html += meyve + "<br>";
+            }
+            
+            test5.innerHTML = html;
+
+    });
+
+</script>
+</html>

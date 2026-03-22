@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 50px auto; text-align: center; }
+        input { width: 70%; padding: 15px; font-size: 18px; }
+        button { padding: 15px 25px; background: #007bff; color: white; border: none; font-size: 18px; }
+        #sonuc { margin-top: 30px; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <h1>🌤️ Hava Durumu</h1>
+    <input id="sehir" placeholder="Şehir yaz (İstanbul, Ankara...)">
+    <button onclick="havaGetir()">Ara</button>
+    <div id="sonuc"></div>
+</body>
+<script>
+    async function havaGetir(){
+        let sehir= document.getElementById("sehir").value.trim();
+        if(!sehir) return alert("Lütfen bir şehir adı girin!");
+        try {
+            let response = await fetch(`https://wttr.in/${sehir}?format=j1`);
+            let veri = await response.json();
+            let hava = veri.current_condition[0];
+            let sicaklik = veri.weather[0].maxtempC;
+                
+            sonuc.innerHTML = `
+                <div style="font-size: 28px; margin-bottom: 10px;">
+                        ${veri.nearest_area[0].areaName[0].value}
+                    </div>
+                    <div class="sicaklik">${sicaklik}°C</div>
+                    <div style="font-size: 20px; margin: 10px 0;">
+                        ${hava.weatherDesc[0].value}
+                    </div>
+                    <div>💧 Nem: ${hava.humidity}%</div>
+                    <div>💨 Rüzgar: ${hava.windspeedKmph} km/s</div>
+                `;
+
+                localStorage.setItem("sonSehir", sehir); // Son aranan şehri LocalStorage'a kaydet
+
+        } catch  {
+            alert("Hata oluştu! Lütfen geçerli bir şehir adı girin.");
+        }
+    }
+    
+    document.getElementById("sehir").addEventListener("keypress", e => {
+
+        if(e.key === "Enter"){
+            havaGetir();
+        }
+    });
+
+    let sonSehir = localStorage.getItem("sonSehir");
+        if(sonSehir) {
+            document.getElementById("sehir").value = sonSehir;
+        }
+
+</script>
+</html>

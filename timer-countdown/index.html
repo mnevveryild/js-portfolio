@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <h2>10 Saniye Sayacı</h2>
+        <div id="sayac">10</div>
+        <button onclick="sayaciBaslat()">Sayacı Başlat</button>
+        <button onclick="sifirla()">Sıfırla</button>
+       
+        
+    </div>
+    
+</body>
+<script>
+
+    let timer; // timer değişkenini global olarak tanımlıyoruz
+
+    function sayaciBaslat(){
+        let saniye = 10;
+        const timer = setInterval(() => {
+            document.getElementById("sayac").innerHTML = saniye
+            saniye--
+            if(saniye < 0){
+                clearInterval(timer);
+                document.getElementById("sayac").innerHTML = "Süre doldu!";
+            }
+        }
+        , 1000);    
+    }
+
+  
+
+    function sifirla(){
+        location.reload();
+    }   
+   
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="menu-btn">☰ Menü</button>
+<div class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    Menü içeriği...
+  </div>
+</div>
+</body>
+<script>
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+    btn.onclick = () => document.querySelector('.modal').style.display = 'flex';
+});
+    document.querySelector('.close').onclick = () => {
+    document.querySelector('.modal').style.display = 'none';
+};
+</script>
+</html>

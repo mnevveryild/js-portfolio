@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        .urun { border:1px solid #ccc; padding:10px; margin:10px; }
+        .sepet { background:lightblue; padding:20px; }
+        button { background:red; color:white; border:none; padding:5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>🛒 Mağaza</h1>
+    
+    <div id="urunler"></div>
+    
+    <div class="sepet">
+        <h2>Sepet (<span id="toplam">0</span>)</h2>
+        <div id="sepetListesi"></div>
+        <button onclick="sepetiTemizle()">Sepeti Temizle</button>
+    </div>
+    
+</body>
+<script>
+    const urunler = [
+        { id:1, isim:"pantolon",fiyat:1700},
+        { id:2, isim:"gömlek",fiyat:1200},
+        { id:3, isim:"ayakkabı",fiyat:2500},
+        { id:4, isim:"çanta",fiyat:3000},      
+    ]
+
+    let sepet = [];
+
+    urunleriGoster(); 
+
+    function urunleriGoster(){
+        const container = document.getElementById("urunler");
+        container.innerHTML = ""
+
+        urunler.forEach(urun => {
+            const div =document.createElement("div");
+            div.className = "urun";
+            div.innerHTML = `
+                <h3>${urun.isim}</h3>
+                <p>Fiyat: ${urun.fiyat} TL</p>
+                <button onclick="sepeteEkle(${urun.id})">Sepete Ekle</button>
+            `;
+            container.appendChild(div);
+
+        });
+
+    }
+
+        function sepeteEkle(urunId){
+            const urun = urunler.find(u => u.id === urunId);
+            sepet.push(urun);
+            sepetGuncelle();
+            localStorage.setItem("sepet", JSON.stringify(sepet));
+        }
+
+        function sepetGuncelle(){
+            const liste = document.getElementById("sepetListesi");
+            const toplamEl=document.getElementById("toplam");
+
+            liste.innerHTML = "";
+            let toplam = 0;
+            sepet.forEach((urun,index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    ${urun.isim} - ${urun.fiyat} TL 
+                    <button onclick="sepettenCikar(${index})">Çıkar</button>
+                `;
+                liste.appendChild(div);
+                toplam += urun.fiyat;
+                
+            });
+            toplamEl.textContent = toplam;  
+        }
+
+        function sepettenCikar(index){
+            sepet.splice(index,1);
+            sepetGuncelle();
+            localStorage.setItem("sepet", JSON.stringify(sepet));
+        }
+        function sepetiTemizle(){
+            sepet = [];
+            sepetGuncelle();
+            localStorage.removeItem("sepet");
+        }
+
+        const kaydedilmisSepet = localStorage.getItem("sepet");
+        if(kaydedilmisSepet){
+            sepet = JSON.parse(kaydedilmisSepet);
+            sepetGuncelle();
+        }   
+
+
+
+
+</script>
+</html>

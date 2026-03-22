@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="konu">
+        <h3>Koşul (if/else)</h3>
+        <input id="yas" type="number" placeholder="Yaş">
+        <button onclick="testYas()">Kontrol</button>
+        <div id="test4"></div>
+    </div>
+</body>
+
+<script>
+    function testYas(){
+        let yas = Number(document.getElementById("yas").value);
+        let sonuc = document.getElementById("test4");
+        if( yas >= 18){
+            sonuc.innerHTML = "yetişkin";
+            sonuc.style.color = "green";
+        } else {
+            sonuc.innerHTML = "çocuk";
+            sonuc.style.color = "red";
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Test</title>
+</head>
+<body>
+    <h1 id="baslik">Merhaba!</h1>
+    <button id="tiklaBtn">Tıkla</button>
+    
+    <script>
+       let btn = document.getElementById("tiklaBtn");
+
+       btn.onclick = function() {
+           alert("Butona tıklandı!");
+       }
+    
+       // Alternatif olarak addEventListener kullanabiliriz
+       btn.addEventListener("click", function() {
+          baslik.style.color = "orange"; // Başlık rengini değiştirelim
+       });
+
+    </script>
+</body>
+</html>

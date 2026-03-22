@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <input id="email" placeholder="Email" type="email">
+    <input id="password" placeholder="Şifre" type="password">
+    <button id="loginBtn">Giriş</button>
+    <p id="mesaj"></p>
+</body>
+<script>
+    const loginBtn = document.getElementById("loginBtn");
+    loginBtn.addEventListener("click", function(){
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let mesaj = document.getElementById("mesaj");
+
+        if(email === "" && password === "") {
+            mesaj.textContent = "Lütfen email ve şifre giriniz.";
+            return;}
+        
+        if(password.length < 6) {
+            mesaj.textContent = "Şifre en az 6 karakter olmalıdır.";
+            return;
+        }
+        
+
+        localStorage.setItem("email", email);
+        mesaj.innerHTML = `Hoşgeldiniz, <strong>${email}</strong>`;
+        mesaj.style.color = "orange";
+    });
+</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; }
+        .urunler { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .urun { border: 2px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .urun:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .ekle { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .sepet { background: #f8f9fa; padding: 30px; border-radius: 15px; }
+        .sepet-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #dee2e6; }
+        .sil { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        .toplam { font-size: 24px; font-weight: bold; color: #28a745; text-align: right; margin-top: 20px; }
+        .tüm { background: #5b28a7; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .çıkar { background: #dcc335; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+    <h1>🛒 Mağaza</h1>
+    <div id="urunler"></div>
+    <div id="sepet">
+        <h2>Sepet <span id="sepetSayisi">(0)</span></h2>
+        <div id="sepetItems"></div>
+        <div id="toplam" class="toplam">TOPLAM: 0₺</div>
+        <button class="tüm" onclick="sepetiTemizle()">Sepeti Temizle</button>
+
+    </div>
+    
+</body>
+<script>
+    let urunler = [
+        { id:1,isim:"Mackbook pro", fiyat:45000,resim:"💻"},
+        { id:2,isim:"iPhone 14 Pro", fiyat:30000,resim:"📱"},
+        { id:3,isim:"Airpods Pro", fiyat:2000,resim:"🎧"},
+        { id:4,isim:"Apple Watch", fiyat:5000,resim:"⌚"},  
+    ];
+
+    let sepet = JSON.parse(localStorage.getItem("sepet")) || []; // LocalStorage'dan sepeti yükle veya boş bir dizi oluştur
+
+    urunleriGoster();
+    sepetiGoster();
+
+    function urunleriGoster(){
+        let container = document.getElementById("urunler");
+        for (let urun of urunler){
+            let urunDiv = document.createElement("div");
+            urunDiv.className = "urun";
+
+            urunDiv.innerHTML = `
+                <div style="font-size: 50px;">${urun.resim}</div>
+                <h3>${urun.isim}</h3>
+                <p>Fiyat: ${urun.fiyat}₺</p>`;
+
+            let ekleBtn = document.createElement("button");
+            ekleBtn.className = "ekle";
+            ekleBtn.textContent = "Sepete Ekle";
+            ekleBtn.onclick =() => sepeteEkle(urun);
+
+            urunDiv.appendChild(ekleBtn);
+            container.appendChild(urunDiv);}
+            
+        }
+    
+
+    function sepeteEkle(urun){
+        let mevcut = sepet.find(item => item.id === urun.id);
+        if (mevcut) {
+            mevcut.adet = (mevcut.adet || 1) + 1; // Ürün zaten sepetteyse adeti artır
+        } else {
+            sepet.push({ ...urun, adet: 1 }); // Yeni ürünü sepete ekle
+        }
+        localStorage.setItem("sepet", JSON.stringify(sepet)); // Sepeti LocalStorage'a kaydet
+        sepetiGoster(); 
+    }
+
+    function sepetiGoster(){
+        let itemsContainer = document.getElementById("sepetItems");
+        let sepetSayisi = document.getElementById("sepetSayisi");
+        let toplamUrun= document.getElementById("toplam");
+
+        itemsContainer.innerHTML = "";
+        sepetSayisi.textContent = `(${sepet.length})`;
+
+        let toplam = 0;
+        for (let item of sepet){
+            let itemDiv = document.createElement("div");
+            itemDiv.className = "sepet-item";
+
+            itemDiv.innerHTML = `
+                 <div>
+                        <strong>${item.isim}</strong><br>
+                        <small>${item.resim} x${item.adet}</small>
+                    </div>
+                    <div>
+                        <strong>${item.fiyat * item.adet}₺</strong>
+                    </div>
+                `;
+
+            let silBtn = document.createElement("button");
+            silBtn.className = "sil";
+            silBtn.textContent = "Sil";
+            silBtn.onclick = () =>{
+                sepet = sepet.filter(s => s.id !== item.id); // ürünü sepetten çıkar yani id'si eşit olmayanları tut
+                localStorage.setItem("sepet", JSON.stringify(sepet)); // Sepeti LocalStorage'a kaydet
+                sepetiGoster(); // Sepeti güncelle
+            };
+
+            let azaltBtn = document.createElement("button");
+            azaltBtn.className = "çıkar";
+            azaltBtn.textContent = "Çıkar";
+            azaltBtn.onclick = () => {
+                if (item.adet > 1) {
+                    item.adet -= 1; // Adeti azalt
+                } else {
+                    sepet = sepet.filter(s => s.id !== item.id); // Adet 1 ise ürünü sepetten çıkar
+                }
+                localStorage.setItem("sepet", JSON.stringify(sepet)); // Sepeti LocalStorage'a kaydet
+                sepetiGoster(); // Sepeti güncelle
+            };
+                
+
+
+            itemDiv.appendChild(silBtn);
+            itemDiv.appendChild(azaltBtn);
+            itemsContainer.appendChild(itemDiv);
+            toplam += item.fiyat * item.adet;
+        }
+        toplamUrun.textContent = `TOPLAM: ${toplam}₺`;
+    }
+
+    function sepetiTemizle(){
+        sepet = [];
+        localStorage.removeItem("sepet"); // LocalStorage'dan sepeti kaldır
+        sepetiGoster(); // Sepeti güncelle
+    }
+
+</script>
+</html>

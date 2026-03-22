@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Test</title>
+</head>
+<body>
+    <h1 id="baslik">Merhaba!</h1>
+    <button id="tiklaBtn">Tıkla</button>
+    
+    <script>
+        // JS buraya yazılır
+        console.log("JS çalışıyor!");
+
+        // id ile element seçme
+        let baslik = document.getElementById("baslik");
+        baslik.textContent = "Merhaba, JavaScript!"; //değiştirme
+        // class ile element seçme
+        let butonlar = document.getElementsByClassName("btn");
+        let querybtn = document.querySelector(".btn"); // ilk bulduğu elementi seçer
+        // querySelectorAll ile tüm elementleri seçme
+        // querySelector("#id .child") gibi daha karmaşık seçimler yapabiliriz
+        baslik.innerHTML = "<strong>Yeni başlık</strong>"; //değiştirdik
+
+
+    </script>
+</body>
+</html>

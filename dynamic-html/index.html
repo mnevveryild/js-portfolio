@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ürünler</h1>
+    <div id="urunler"></div>
+   
+    
+</body>
+<script>
+    function urunleriGoster(urunler) {
+        const container = document.getElementById("urunler");
+        container.innerHTML = ""; // önceki ürünleri temizle
+
+        urunler.forEach(urun => {
+            const div = document.createElement("div");
+            div.className = "urun";
+            div.innerHTML = `
+                <h3>${urun.name}</h3>
+                <p>Fiyat: ${urun.price} TL</p>
+                <button onclick="sepeteEkle(${urun.id})">Sepete Ekle</button>
+            `;
+            container.appendChild(div);
+        });
+
+}
+        function sepeteEkle(urunId) {
+            alert(`✅ ${urunId} ID'li ürün sepete eklendi!`)
+            console.log("Sepet:", urunId)
+        }
+
+        urunleriGoster([
+    {id: 1, name: "Laptop", price: 5000},
+    {id: 2, name: "Telefon", price: 3000},
+    {id: 3, name: "Tablet", price: 2000}
+]);
+
+</script>
+</html>
