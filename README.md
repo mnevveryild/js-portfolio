@@ -1,29 +1,71 @@
-![Projects](https://img.shields.io/badge/Projects-5-green?style=for-the-badge&logo=javascript&logoColor=yellow)
+# JavaScript Öğrenme Yolculuğum
+
+> Sıfırdan 5 projeye — temel JS'ten API entegrasyonuna.
+
+---
 
 ## 📚 Öğrendiklerim
+
 ### Core JavaScript
-✅ Değişkenler (let/const) ✅ Fonksiyonlar (arrow function) ✅ Koşullar (if/else, ternary) ✅ Döngüler (for of) ✅ Array (map/filter/find/push) ✅ Template literals (${degisken}) ✅ Number() dönüşüm
+`let` / `const` &nbsp;·&nbsp; Arrow functions &nbsp;·&nbsp; `if/else`, ternary &nbsp;·&nbsp; `for...of` döngüsü &nbsp;·&nbsp; Array metotları (`map`, `filter`, `find`, `push`) &nbsp;·&nbsp; Template literals &nbsp;·&nbsp; `Number()` dönüşümü
+
 ### DOM & Events
-✅ getElementById/querySelector ✅ createElement/appendChild ✅ innerHTML/textContent/classList ✅ onclick/addEventListener ✅ keypress/keydown events
+`getElementById` / `querySelector` &nbsp;·&nbsp; `createElement` / `appendChild` &nbsp;·&nbsp; `innerHTML` / `textContent` / `classList` &nbsp;·&nbsp; `onclick` / `addEventListener` &nbsp;·&nbsp; `keypress` / `keydown`
+
 ### Veri Yönetimi
-✅ LocalStorage (CRUD) ✅ JSON (stringify/parse) ✅ State management ✅ Form validation
+LocalStorage (CRUD) &nbsp;·&nbsp; `JSON.stringify` / `JSON.parse` &nbsp;·&nbsp; State yönetimi &nbsp;·&nbsp; Form validasyonu
+
 ### API & Async
-✅ fetch/async/await ✅ try/catch error handling ✅ Real API entegrasyonu
-## 🛠️ Projelerim (5/5)
-### 1. 🧾 **TODO App**
-✅ CRUD işlemleri ✅ Filtreleme (tamamlananlar) ✅ Task sayacı ✅ LocalStorage kalıcılık ✅ Enter tuşu kısayol
-### 2. 🔐 **Login Sistemi** 
-✅ Form validation (email/şifre) ✅ State switching (login/panel) ✅ LocalStorage persist ✅ Puan sistemi ✅ Çıkış fonksiyonu
-### 3. 🛒 **Ürün Sepeti**
-✅ Dinamik ürün ekleme ✅ Adet hesaplama ✅ Toplam fiyat ✅ Silme işlemi ✅ LocalStorage
-### 4. 🌤️ **Hava Durumu**
-✅ Real API (wttr.in) ✅ async/await/fetch ✅ JSON parsing ✅ Enter tuşu arama ✅ Son arama hafızası
+`fetch` / `async` / `await` &nbsp;·&nbsp; `try/catch` hata yönetimi &nbsp;·&nbsp; Gerçek API entegrasyonu
 
-## 💻 Teknik Becerilerim
+---
 
-```javascript
-// Örnek kodlarım:
-tasks.filter(task => task.tamam)           // Filtre
-localStorage.setItem("data", JSON.stringify(tasks))  // Kaydet
-async function apiCek() { return await fetch(url).then(r=>r.json()); }  // API
-document.createElement("div").appendChild(child)  // DOM
+## 🛠️ Projeler
+
+| # | Proje | Öne Çıkan Özellikler |
+|---|-------|----------------------|
+| 1 | 🧾 **TODO App** | CRUD, filtreleme, sayaç, LocalStorage, Enter kısayolu |
+| 2 | 🔐 **Login Sistemi** | Form validasyonu, state switching, puan sistemi, LocalStorage |
+| 3 | 🛒 **Ürün Sepeti** | Dinamik ürün ekleme, adet & fiyat hesaplama, silme, LocalStorage |
+| 4 | 🌤️ **Hava Durumu** | wttr.in API, async/await, JSON parsing, son arama hafızası |
+| 5 | 🛍️ **Alışveriş Sepeti** | Ürün listeleme, sepete ekleme, toplam hesaplama, LocalStorage |
+
+---
+
+## 💻 Kod Örnekleri
+```js
+// Filtreleme
+const tamamlananlar = tasks.filter(task => task.tamam);
+
+// LocalStorage'a kaydetme
+localStorage.setItem("tasks", JSON.stringify(tasks));
+
+// API çekme
+async function havaGetir(sehir) {
+  const res = await fetch(`https://wttr.in/${sehir}?format=j1`);
+  return await res.json();
+}
+
+// DOM'a eleman ekleme
+const kart = document.createElement("div");
+liste.appendChild(kart);
+` ` `
+
+---
+
+## 📈 İlerleme
+
+` ` `
+Core JS      ████████████████████  %100
+DOM & Events ████████████████████  %100
+Veri Yönt.   ████████████████████  %100
+API & Async  ████████████████████  %100
+Projeler     ████████████████████  5/5
+` ` `
+
+---
+
+*Öğrenmeye devam ediyorum. ⚡*
+```
+
+Bunu kopyalayıp `README.md` adıyla kaydetmen yeterli. (` ` ` olan yerlerde boşlukları kaldır, sadece ` ``` ` olmalı — burada iç içe kod bloğu sorunu yaşadım.)
