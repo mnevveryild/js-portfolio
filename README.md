@@ -61,6 +61,6 @@ Projeler     ████████████████████  5/5
 
 ---
 
-*Öğrenmeye devam ediyorum. *
-```
+*Öğrenmeye devam ediyorum.*
+
 
